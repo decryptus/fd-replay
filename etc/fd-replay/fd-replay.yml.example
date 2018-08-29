@@ -1,0 +1,52 @@
+general:
+  listen_addr:   0.0.0.0
+  listen_port:   8080
+  max_workers:   5
+  max_requests:  5000
+  max_life_time: 3600
+  lock_timeout:  60
+  charset:       utf-8
+  content_type:  'text/plain; charset=utf-8'
+endpoints:
+  'example.com':
+    plugin: 'http'
+    config:
+      url: http://example.com
+      timeout: 10
+      allow_redirects: false
+      params:
+        - '- platform': ~
+        - '+ platform': 'new'
+        - '+% token': '{time:%H}'
+        - '+% lang': '{env[LANG]}'
+        - '= firsttime': 'tc_firsttime'
+        - '- firsttime': ~
+	  headers:
+		- '~ User-Agent':
+            'pattern': '^([^/]+)/.*$'
+            'repl': '\1'
+			'flags': IGNORECASE
+  'example.org':
+    plugin: 'http'
+    config:
+      url: http://example.org
+      timeout: 10
+      allow_redirects: false
+      params:
+        - '- platform': ~
+        - '+ platform': 'old'
+        - '+% token': '{time:%H}'
+modules:
+  replay:
+    routes:
+      index:
+        handler: 'index'
+        regexp:  '.*'
+        safe_init: true
+        op:
+          - 'GET'
+          - 'DELETE'
+          - 'HEAD'
+          - 'PATCH'
+          - 'POST'
+          - 'PUT'

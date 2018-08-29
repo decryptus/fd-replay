@@ -1,0 +1,4 @@
+usr/share/fd-replay
+var/lib/fd-replay
+var/log/fd-replay
+var/run/fd-replay

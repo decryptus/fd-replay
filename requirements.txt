@@ -1,0 +1,5 @@
+dwho>=0.2.33
+pycurl
+pyyaml>=3.10
+sonicprobe>=0.2.40
+requests>=2.0

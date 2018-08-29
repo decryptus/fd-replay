@@ -1,0 +1,68 @@
+#!/bin/sh
+
+set -e
+
+USER="fd-replay"
+GROUP="fd-replay"
+
+DIRS="/etc/fd-replay
+      /usr/share/fd-replay
+      /var/lib/fd-replay
+      /var/log/fd-replay
+      /var/run/fd-replay"
+
+case "$1" in
+    configure|reconfigure)
+        # create fd-replay group
+        if ! getent group "${GROUP}" >/dev/null;
+        then
+            addgroup --system "${GROUP}"
+        fi
+
+        # create fd-replay user
+        if ! getent passwd "${USER}" >/dev/null;
+        then
+            adduser --system \
+            --ingroup "${GROUP}" \
+            --home /var/lib/fd-replay \
+            --no-create-home \
+            --gecos "FD Replay" \
+            --disabled-login "${USER}"
+        fi
+
+        echo "${DIRS}" | while read -r dir;
+        do
+            chown -R "${USER}.${GROUP}" "${dir}"
+        done
+
+        case "`lsb_release -cs`" in
+            wheezy)
+                pip install -q -U -i https://pypi.python.org/simple/ pip==9.0.3 2>/dev/null
+                hash -r
+                pip install -q -i https://pypi.python.org/simple/ -r /usr/share/fd-replay/requirements.txt 2>/dev/null
+                ;;
+            jessie)
+                pip install -q -U pip
+                hash -r
+                pip install -q -r /usr/share/fd-replay/requirements.txt
+                ;;
+            *)
+                pip install -q -r /usr/share/fd-replay/requirements.txt
+            ;;
+        esac
+
+        update-rc.d fd-replay defaults
+        if [ -f /etc/fd-replay/fd-replay.yml ];
+        then
+            invoke-rc.d fd-replay start || true
+        fi
+    ;;
+
+    abort-upgrade|abort-remove|abort-deconfigure)
+    ;;
+
+    *)
+        echo "postinst called with unknown argument \`$1'" >&2
+        exit 1
+    ;;
+esac

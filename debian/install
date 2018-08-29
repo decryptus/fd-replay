@@ -1,0 +1,5 @@
+bin/  usr/
+etc/* etc/
+requirements.txt usr/share/fd-replay
+setup.py usr/share/fd-replay
+VERSION usr/share/fd-replay

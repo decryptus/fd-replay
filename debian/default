@@ -1,0 +1,6 @@
+# defaults file for fd-replay
+EXTRA_OPTS="-l info"
+
+# Service can be enabled by setting
+# FD_REPLAY_ENABLE="yes"
+FD_REPLAY_ENABLE="yes"
