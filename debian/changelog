@@ -1,3 +1,9 @@
+fd-replay (0.0.4) unstable; urgency=medium
+
+  * Fixed etc/fd-replay/fd-replay.example
+
+ -- Adrien DELLE CAVE <adrien.delle.cave@commandersact.com>  Wed, 29 Aug 2018 21:56:21 +0200
+
 fd-replay (0.0.3) unstable; urgency=medium
 
   * Added README.md
