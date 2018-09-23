@@ -1,3 +1,15 @@
+fd-replay (0.0.6) unstable; urgency=medium
+
+  * Reviewed requirements.txt.
+
+ -- Adrien DELLE CAVE <adrien.delle.cave@commandersact.com>  Sun, 23 Sep 2018 12:07:07 +0200
+
+fd-replay (0.0.5) unstable; urgency=medium
+
+  * Replaced http_json_server by httpdis.
+
+ -- Adrien DELLE CAVE <adrien.delle.cave@commandersact.com>  Sun, 23 Sep 2018 12:04:51 +0200
+
 fd-replay (0.0.4) unstable; urgency=medium
 
   * Fixed etc/fd-replay/fd-replay.example

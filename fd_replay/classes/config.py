@@ -25,14 +25,14 @@ import os
 import signal
 import yaml
 
-from fd_replay.classes.exceptions import FdReplayConfigurationError
-from fd_replay.classes.plugins import ENDPOINTS, PLUGINS
 from dwho.config import parse_conf, stop, DWHO_THREADS
 from dwho.classes.libloader import DwhoLibLoader
 from dwho.classes.modules import MODULES
+from fd_replay.classes.exceptions import FdReplayConfigurationError
+from fd_replay.classes.plugins import ENDPOINTS, PLUGINS
+from httpdis.httpdis import get_default_options
 from mako.template import Template
 from sonicprobe.helpers import load_yaml
-from sonicprobe.libs.http_json_server import get_default_options
 
 _TPL_IMPORTS = ('from os import environ as ENV',)
 LOG          = logging.getLogger('fd-replay.config')

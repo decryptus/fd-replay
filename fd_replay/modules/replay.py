@@ -28,10 +28,10 @@ import uuid
 
 from dwho.classes.modules import DWhoModuleBase, MODULES
 from fd_replay.classes.plugins import FdReplayEPTObject, EPTS_SYNC
+from httpdis.httpdis import HttpReqError, HttpResponse
 from sonicprobe import helpers
 from sonicprobe.libs import network, urisup, xys
 from sonicprobe.libs.moresynchro import RWLock
-from sonicprobe.libs.http_json_server import HttpReqError, HttpResponse
 
 LOG = logging.getLogger('fd-replay.modules.replay')
 

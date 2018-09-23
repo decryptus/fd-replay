@@ -20,7 +20,7 @@ __license__ = """
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-__version__ = '0.0.4'
+__version__ = '0.0.6'
 
 # TODO: load Python logging configuration (using standard logging.config)
 
@@ -35,8 +35,9 @@ from fd_replay.modules import * # XXX
 from fd_replay.plugins import * # XXX
 from dwho.modules import * # XXX
 from dwho.config import init_logger
+from httpdis import httpdis
 from sonicprobe import helpers
-from sonicprobe.libs import daemonize, http_json_server
+from sonicprobe.libs import daemonize
 
 
 SYSLOG_NAME = "fd-replay"
@@ -129,8 +130,8 @@ def main(options):
     setattr(options, 'server_version', "%s/%s" % (SYSLOG_NAME, __version__))
     setattr(options, 'sys_version', '')
 
-    http_json_server.init(options, False)
-    DWHO_THREADS.append(http_json_server.stop)
+    httpdis.init(options, False)
+    DWHO_THREADS.append(httpdis.stop)
 
     if not options.foreground:
         LOG.info("Transforming into a daemon from hell")
@@ -153,7 +154,7 @@ def main(options):
         os.umask(022)
 
         start_endpoints()
-        http_json_server.run(options)
+        httpdis.run(options)
     except (KeyboardInterrupt, SystemExit):
         raise
     except Exception:
