@@ -1,6 +1,6 @@
-dwho>=0.2.60
-httpdis>=0.5.3
+dwho>=0.2.61
+httpdis>=0.5.4
 pycurl
 pyyaml>=3.10
-sonicprobe>=0.2.51
+sonicprobe>=0.2.53
 requests>=2.0

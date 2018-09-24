@@ -1,3 +1,9 @@
+fd-replay (0.0.8) unstable; urgency=medium
+
+  * Reviewed README.md.
+
+ -- Adrien DELLE CAVE <adrien.delle.cave@commandersact.com>  Mon, 24 Sep 2018 09:57:40 +0200
+
 fd-replay (0.0.7) unstable; urgency=medium
 
   * Reviewed requirements.txt.
