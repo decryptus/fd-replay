@@ -26,6 +26,7 @@ import re
 import requests
 
 from datetime import datetime
+from fd_replay.classes.exceptions import FdReplayConfigurationError
 from fd_replay.classes.plugins import FdReplayPlugBase, FdReplayTargetFailed, PLUGINS
 from sonicprobe.libs import urisup
 
@@ -39,7 +40,7 @@ _ALLOWED_METHODS = ('delete',
                     'put')
 
 _RE_MATCH_OBJECT_FUNCS     = ('match', 'search')
-_HTTP_DICT_MODIFIERS_MATCH = re.compile(r'^(?:(?P<modifiers>[\+\-~=%]+)\s)?(?P<key>.*)$').match
+_HTTP_DICT_MODIFIERS_MATCH = re.compile(r'^(?:(?P<modifiers>[\+\-~=%]+)\s)?(?P<key>.+)$').match
 
 
 class FdReplayHttpPlugin(FdReplayPlugBase):
@@ -66,9 +67,8 @@ class FdReplayHttpPlugin(FdReplayPlugBase):
         func         = args.get('func') or 'sub'
         rfunc        = args.get('return')
         rargs        = args.get('return_args')
-        default      = args.get('default')
         is_match_obj = func in _RE_MATCH_OBJECT_FUNCS
-        
+
         if is_match_obj and not rfunc:
             rfunc = 'group'
             rargs = [1]
@@ -86,11 +86,11 @@ class FdReplayHttpPlugin(FdReplayPlugBase):
                 flags = self._parse_re_flags(args.pop('flags'))
             func = getattr(re.compile(pattern = args.pop('pattern'),
                                       flags = flags),
-                                      func)
+                           func)
         else:
             func = getattr(re, func)
 
-        args['string'] = value 
+        args['string'] = value
         ret            = func(**args)
 
         if ret is None:
@@ -104,7 +104,10 @@ class FdReplayHttpPlugin(FdReplayPlugBase):
 
         return getattr(ret, rfunc)()
 
-    def _build_http_dict(self, xtype, cfg, xdict, r = {}): 
+    def _build_http_dict(self, xtype, cfg, xdict, r = None):
+        if r is None:
+            r = {}
+
         fkwargs = {'env': os.environ,
                    'time': datetime.now(),
                    'gmtime': datetime.utcnow(),
@@ -114,7 +117,7 @@ class FdReplayHttpPlugin(FdReplayPlugBase):
             ename = elt.keys()[0]
             m = _HTTP_DICT_MODIFIERS_MATCH(ename)
             if m:
-                modifiers = m.group('modifiers')
+                modifiers = m.group('modifiers') or '+'
                 key       = m.group('key')
             else:
                 modifiers = '+'
@@ -184,7 +187,6 @@ class FdReplayHttpPlugin(FdReplayPlugBase):
         cfg         = self.target.config
         request     = obj.get_request()
         method      = request.get_method().lower()
-        headers     = request.get_headers()
 
         if not cfg.get('url'):
             LOG.error("error on target: %r, missing url in configuration",
@@ -200,7 +202,7 @@ class FdReplayHttpPlugin(FdReplayPlugBase):
         cfg['headers'] = self._mk_headers(cfg.get('headers'),
                                           request.get_headers().copy())
 
-        cfg['params']  = self._mk_params(cfg.get('params'), 
+        cfg['params']  = self._mk_params(cfg.get('params'),
                                          request.query_params().copy())
 
         if 'remove_payload' in cfg and not cfg.pop('remove_payload'):

@@ -1,3 +1,39 @@
+fd-replay (0.0.14) unstable; urgency=medium
+
+  * Reviewed requirements.txt.
+
+ -- Adrien DELLE CAVE <adrien.delle.cave@commandersact.com>  Sat, 23 Feb 2019 08:02:06 +0100
+
+fd-replay (0.0.13) unstable; urgency=medium
+
+  * Reviewed requirements.txt.
+
+ -- Adrien DELLE CAVE <adrien.delle.cave@commandersact.com>  Fri, 22 Feb 2019 19:22:59 +0100
+
+fd-replay (0.0.12) unstable; urgency=medium
+
+  * Reviewed requirements.txt.
+
+ -- Adrien DELLE CAVE <adrien.delle.cave@commandersact.com>  Fri, 22 Feb 2019 19:03:36 +0100
+
+fd-replay (0.0.11) unstable; urgency=medium
+
+  * Added environment variables FD_REPLAY_LOGFILE FD_REPLAY_PIDFILE.
+
+ -- Adrien DELLE CAVE <adrien.delle.cave@commandersact.com>  Fri, 05 Oct 2018 13:08:55 +0200
+
+fd-replay (0.0.10) unstable; urgency=medium
+
+  * Reviewed requirements.txt.
+
+ -- Adrien DELLE CAVE <adrien.delle.cave@commandersact.com>  Wed, 03 Oct 2018 14:43:36 +0200
+
+fd-replay (0.0.9) unstable; urgency=medium
+
+  * Clean.
+
+ -- Adrien DELLE CAVE <adrien.delle.cave@commandersact.com>  Wed, 03 Oct 2018 14:42:12 +0200
+
 fd-replay (0.0.8) unstable; urgency=medium
 
   * Reviewed README.md.

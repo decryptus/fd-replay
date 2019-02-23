@@ -20,17 +20,13 @@ __license__ = """
 """
 
 import copy
-import json
 import logging
-import requests
 import time
 import uuid
 
 from dwho.classes.modules import DWhoModuleBase, MODULES
 from fd_replay.classes.plugins import FdReplayEPTObject, EPTS_SYNC
 from httpdis.httpdis import HttpReqError, HttpResponse
-from sonicprobe import helpers
-from sonicprobe.libs import network, urisup, xys
 from sonicprobe.libs.moresynchro import RWLock
 
 LOG = logging.getLogger('fd-replay.modules.replay')
@@ -87,8 +83,6 @@ class ReplayModule(DWhoModuleBase):
         return uid
 
     def index(self, request):
-        params = request.query_params()
-
         if not self.LOCK.acquire_read(self.lock_timeout):
             raise HttpReqError(503, "unable to take LOCK for reading after %s seconds" % self.lock_timeout)
 

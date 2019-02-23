@@ -23,7 +23,6 @@ __license__ = """
 import logging
 import os
 import signal
-import yaml
 
 from dwho.config import parse_conf, stop, DWHO_THREADS
 from dwho.classes.libloader import DwhoLibLoader
@@ -38,13 +37,16 @@ _TPL_IMPORTS = ('from os import environ as ENV',)
 LOG          = logging.getLogger('fd-replay.config')
 
 
-def import_file(filepath, config_dir = None, xvars = {}):
+def import_file(filepath, config_dir = None, xvars = None):
+    if not xvars:
+        xvars = {}
+
     if config_dir and not filepath.startswith(os.path.sep):
         filepath = os.path.join(config_dir, filepath)
 
     with open(filepath, 'r') as f:
         return load_yaml(Template(f.read(),
-                         imports = _TPL_IMPORTS).render(**xvars))
+                                  imports = _TPL_IMPORTS).render(**xvars))
 
 def load_conf(xfile, options = None):
     signal.signal(signal.SIGTERM, stop)

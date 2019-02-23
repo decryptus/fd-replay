@@ -14,7 +14,7 @@ set -e
 PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 DAEMONNAME=fd-replay
 DAEMON=/usr/bin/$DAEMONNAME
-PIDFILE=/run/$DAEMONNAME.pid
+PIDFILE=/run/fd-replay/$DAEMONNAME.pid
 IOSCHED=idle
 NICE=0
 EXTRA_OPTS=""

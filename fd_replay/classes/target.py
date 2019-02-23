@@ -22,7 +22,6 @@ __license__ = """
 
 import copy
 import logging
-import uuid
 
 from dwho.config import load_credentials
 
