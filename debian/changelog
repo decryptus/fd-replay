@@ -1,3 +1,9 @@
+fd-replay (0.0.15) unstable; urgency=medium
+
+  * Require HTTPdis 0.7.1 or later.
+
+ -- Codex <codex@openai.com>  Sat, 07 Nov 2026 09:16:00 +0100
+
 fd-replay (0.0.14) unstable; urgency=medium
 
   * Reviewed requirements.txt.
