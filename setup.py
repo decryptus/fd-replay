@@ -21,6 +21,7 @@ if os.path.isfile(readme_file):
     long_desc_content_type = 'text/markdown'
 
 setup(
+    python_requires     = '<3',
     name                          = 'fd-replay',
     version                       = version,
     description                   = 'fd-replay',
